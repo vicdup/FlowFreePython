@@ -12,33 +12,33 @@ right = 3
 
 
 M=[[0 for col in range (n)] for ligne in range(n)]
-
-M[2][0]=1
-M[7][3]=1
-
-M[8][0]=2
-M[1][1]=2
-
-M[4][1]=3
-M[0][8]=3
-
-M[2][3]=4
-M[0][6]=4
-
-M[3][3]=5
-M[0][7]=5
-
-M[5][4]=6
-M[7][6]=6
-
-M[8][5]=7
-M[7][8]=7
-
+#Cyan
+M[0][0]=1
+M[3][7]=1
+#Orange
+M[1][0]=2
+M[1][4]=2
+#Rose
+M[8][1]=3
+M[1][7]=3
+#Jaune
+M[2][7]=4
+M[6][2]=4
+#Bleu
+M[4][1]=5
+M[4][5]=5
+#Marron
+M[4][2]=6
+M[4][4]=6
+#Vert
+M[7][3]=7
+M[5][7]=7
+#Rouge
 M[4][7]=8
-M[7][7]=8
+M[5][5]=8
 
-M[6][6]=9
-M[6][8]=9
+# M[6][6]=9
+# M[6][8]=9
 
 nbcouleurs=0
 couleurs=[]
@@ -82,11 +82,18 @@ def prettyPrint(X, M):
 			print ("  ",end=''), 
 		print("")
 
+
+
 def prettyPrintM(M):
 	for i in range(n):
 		for j in range(n):
-			print (M[i][j]),
-		print
+			print (M[i][j],end=''),
+		print("")
+def prettyPrettyM(M):
+	for i in range(n):
+		for j in range(n):
+			print( colored(M[i][j], colors[M[i][j]], "on_"+colors[M[i][j]]),end=''),
+		print("")
 
 def flatten(matr):
     rows = len(matr)
@@ -161,7 +168,7 @@ db = solver.Phase(flatten(X),
             solver.ASSIGN_MAX_VALUE)
 
 solver.NewSearch(db)
-
+prettyPrettyM(M)
 if solver.NextSolution():
 	prettyPrint(X,M)
 else:
