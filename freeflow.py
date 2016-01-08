@@ -157,7 +157,3 @@ if solver.NextSolution():
 	prettyPrint(X)
 else:
 	print "No solution found :("
-
-
-
-print colored('hello', 'red'), colored('world', 'green')
