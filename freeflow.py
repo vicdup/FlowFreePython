@@ -1,6 +1,8 @@
+from __future__ import print_function
 import sys
 from ortools.constraint_solver import pywrapcp
 from termcolor import colored
+
 
 n = 9
 top = 0
@@ -52,34 +54,38 @@ colors = ['grey']
 while len(colors)<nbcouleurs:
 	colors += ['red','green','yellow','blue','magenta','cyan','white']
 
-def prettyPrint(X):
+def prettyPrint(X, M):
 	for i in range(n):
 		#print top
 		for j in range(n):
-			print "  ",
-			print colored(X[i][j][top].Value(),colors[X[i][j][top].Value()]),
-			print "  ", 
-		print
-		#print left and right
+			print ("  ",end=''),
+			print (colored(X[i][j][top].Value(),colors[X[i][j][top].Value()], "on_"+colors[X[i][j][top].Value()]),end=''),
+			print ("  ",end=''), 
+		print("")
+		#print left center and right
 		for j in range(n):
-			print colored(X[i][j][left].Value(),colors[X[i][j][left].Value()]),
+			print (colored(X[i][j][left].Value(),colors[X[i][j][left].Value()], "on_"+colors[X[i][j][left].Value()]),end=''),
 			for e in [top, bottom, right, left]:
 				if X[i][j][e].Value() != 0:
-					print " "+ colored(X[i][j][e].Value(),colors[X[i][j][e].Value()])+" ",
-					break
-			print colored(X[i][j][right].Value(),colors[X[i][j][right].Value()]), 
-		print
+					if M[i][j]!=0:
+						print (""+ colored(X[i][j][e].Value(),colors[X[i][j][e].Value()], "on_"+colors[X[i][j][e].Value()])+ colored(X[i][j][e].Value(),colors[X[i][j][e].Value()], "on_"+colors[X[i][j][e].Value()])+ colored(X[i][j][e].Value(),colors[X[i][j][e].Value()], "on_"+colors[X[i][j][e].Value()])+"",end=''),
+						break
+					else:
+						print (""+ colored(X[i][j][e].Value(),colors[X[i][j][e].Value()], "on_"+colors[X[i][j][e].Value()])+ colored(X[i][j][e].Value(),colors[X[i][j][e].Value()], "on_"+colors[X[i][j][e].Value()])+ colored(X[i][j][e].Value(),colors[X[i][j][e].Value()], "on_"+colors[X[i][j][e].Value()])+"",end=''),
+						break
+			print (colored(X[i][j][right].Value(),colors[X[i][j][right].Value()], "on_"+colors[X[i][j][right].Value()]),end=''), 
+		print("")
 		#print bottom
 		for j in range(n):
-			print "  ",
-			print colored(X[i][j][bottom].Value(),colors[X[i][j][bottom].Value()]),
-			print "  ", 
-		print
+			print ("  ",end=''),
+			print (colored(X[i][j][bottom].Value(),colors[X[i][j][bottom].Value()], "on_"+colors[X[i][j][bottom].Value()]),end=''),
+			print ("  ",end=''), 
+		print("")
 
 def prettyPrintM(M):
 	for i in range(n):
 		for j in range(n):
-			print M[i][j],
+			print (M[i][j]),
 		print
 
 def flatten(matr):
@@ -157,6 +163,6 @@ db = solver.Phase(flatten(X),
 solver.NewSearch(db)
 
 if solver.NextSolution():
-	prettyPrint(X)
+	prettyPrint(X,M)
 else:
-	print "No solution found :("
+	print ("No solution found :(")
