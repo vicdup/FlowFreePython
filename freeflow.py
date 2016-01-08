@@ -75,24 +75,55 @@ def flatten(matr):
     elements = len(matr[0][0])
     return [matr[i][j][e] for e in range (elements) for j in range(cols) for i in range(rows)]
 
-###########################################
-## Useful variables
-###########################################
+def displayMenu():
+	print("#################################################################################")
+	print("#################################################################################")
+	print("")
+	print(" WELCOME TO FLOW FREE SOLVER BY Victor DUPREZ")
+	print("")
+	print("#################################################################################")
+	print("#################################################################################")
+	print("What do you want to do?")
+	print("1. Display puzzle to solve")
+	print("2. Change puzzle to solve")
+	print("3. Display solution to puzzle")
+	print("4. Display menu")
+	print("5. Display data choices")
+	
+def makeChoice():
+	global M
+	global n
+	choice = input('Make your choice: ')
+	print("")
+	if choice == 1:
+		print("1. Puzzle to solve is:")
+		prettyDrawM(M)
+		makeChoice()
+	elif choice == 2:
+		print("2. Change puzzle to solve: Add your puzzle to data.py file and enter the choice number you attributed it:")
+		choix=input()
+		[M,n]=initialPuzzle(choix)
+		makeChoice()
+	elif choice == 3:
+		print("3. Solution to puzzle is:")
+		solve()
+		makeChoice()
+	elif choice == 4:
+		displayMenu()
+		makeChoice()
+	elif choice == 5:
+		displayDataChoices()
+		makeChoice()
 
-top = 0
-bottom = 1
-left = 2
-right = 3	
+def displayDataChoices():
+	choix =1
+	while initialPuzzle(choix)!=[[0],0]:
+		print("Initial puzzle n "+str(choix))
+		[M,n]=initialPuzzle(choix)
+		prettyDrawM(M)
+		print("")
+		choix+=1
 
-[M,n]=initialPuzzle(1)
-print(M)
-[nbcouleurs, couleurs]=findNbCouleurs(M)
-colors=getListColorsToDraw(nbcouleurs)
-
-###########################################
-## Solver model
-###########################################
-# Creates the solver.
 def solve():
 	solver = pywrapcp.Solver("freeFlow")
 
@@ -167,54 +198,24 @@ def solve():
 	else:
 		print ("No solution found :(")
 		return 0
-def displayMenu():
-	print("#################################################################################")
-	print("#################################################################################")
-	print("")
-	print(" WELCOME TO FLOW FREE SOLVER BY Victor DUPREZ")
-	print("")
-	print("#################################################################################")
-	print("#################################################################################")
-	print("What do you want to do?")
-	print("1. Display puzzle to solve")
-	print("2. Change puzzle to solve")
-	print("3. Display solution to puzzle")
-	print("4. Display menu")
-	print("5. Display data choices")
-	
-def makeChoice():
-	global M
-	global n
-	choice = input('Make your choice: ')
-	print("")
-	if choice == 1:
-		print("1. Puzzle to solve is:")
-		prettyDrawM(M)
-		makeChoice()
-	elif choice == 2:
-		print("2. Change puzzle to solve: Add your puzzle to data.py file and enter the choice number you attributed it:")
-		choix=input()
-		[M,n]=initialPuzzle(choix)
-		makeChoice()
-	elif choice == 3:
-		print("3. Solution to puzzle is:")
-		solve()
-		makeChoice()
-	elif choice == 4:
-		displayMenu()
-		makeChoice()
-	elif choice == 5:
-		displayDataChoices()
-		makeChoice()
 
-def displayDataChoices():
-	choix =1
-	while initialPuzzle(choix)!=[[0],0]:
-		print("Initial puzzle n "+str(choix))
-		[M,n]=initialPuzzle(choix)
-		prettyDrawM(M)
-		print("")
-		choix+=1
+###########################################
+## Useful variables
+###########################################
+
+top = 0
+bottom = 1
+left = 2
+right = 3	
+
+[M,n]=initialPuzzle(1)
+[nbcouleurs, couleurs]=findNbCouleurs(M)
+colors=getListColorsToDraw(nbcouleurs)
+
+###########################################
+## Start Menu
+###########################################
+
 displayMenu()
 makeChoice()
 
