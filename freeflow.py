@@ -63,7 +63,10 @@ def prettyPrint(X):
 		#print left and right
 		for j in range(n):
 			print colored(X[i][j][left].Value(),colors[X[i][j][left].Value()]),
-			print " "+ colored(X[i][j][left].Value(),colors[X[i][j][left].Value()])+" ",
+			for e in [top, bottom, right, left]:
+				if X[i][j][e].Value() != 0:
+					print " "+ colored(X[i][j][e].Value(),colors[X[i][j][e].Value()])+" ",
+					break
 			print colored(X[i][j][right].Value(),colors[X[i][j][right].Value()]), 
 		print
 		#print bottom
