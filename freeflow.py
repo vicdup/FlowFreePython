@@ -130,7 +130,6 @@ def solve():
 	# Create variables 
 	X  = [[[solver.IntVar(0, nbcouleurs +1, "X[%i][%i][%i]"  % (i,j,e)) for e in range(4)] for j in range(n)] for i in range(n)]
 
-
 	###########################################################################################################
 	# Add constraints
 	# First line top edges must be 0
@@ -193,7 +192,9 @@ def solve():
 
 	solver.NewSearch(db)
 	if solver.NextSolution():
+		print("Solution found in: "+str(solver.WallTime())+"ms")
 		prettyDrawSolution(X,M)
+		
 		return 1
 	else:
 		print ("No solution found :(")
@@ -218,8 +219,3 @@ colors=getListColorsToDraw(nbcouleurs)
 
 displayMenu()
 makeChoice()
-
-
-
-# else:
-# 	print ("No solution found :(")
