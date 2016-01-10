@@ -27,6 +27,7 @@ def getListColorsToDraw(nbcouleurs):
 	return colors
 
 def prettyDrawSolution(X, M):
+	n=len(M[0])
 	for i in range(n):
 		#print top
 		for j in range(n):
@@ -55,12 +56,14 @@ def prettyDrawSolution(X, M):
 		print("")
 
 def prettyPrintM(M):
+	n=len(M[0])
 	for i in range(n):
 		for j in range(n):
 			print (M[i][j],end=''),
 		print("")
 
 def prettyDrawM(M):
+	n=len(M[0])
 	for i in range(n):
 		for j in range(n):
 			print("|"+ colored(M[i][j], 'grey', "on_"+colors[M[i][j]]),end=''),
@@ -125,6 +128,7 @@ def displayDataChoices():
 		choix+=1
 
 def solve():
+	n=len(M[0])
 	solver = pywrapcp.Solver("freeFlow")
 
 	# Create variables 
@@ -209,7 +213,7 @@ bottom = 1
 left = 2
 right = 3	
 
-[M,n]=initialPuzzle(1)
+[M,n]=initialPuzzle(3)
 [nbcouleurs, couleurs]=findNbCouleurs(M)
 colors=getListColorsToDraw(nbcouleurs)
 
